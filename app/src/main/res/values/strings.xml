@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">UFFS Class Help</string>
+    <string name="title_activity_act_main">Turmas</string>
+    <string name="title_activity_act_cadastro_turma">Cadastro Turma</string>
+    <string-array name="Salas">
+        <item>Sala 01</item>
+        <item>Sala 02</item>
+        <item>Sala 03</item>
+        <item>Lab  01</item>
+        <item>Sala 02</item>
+    </string-array>
+
+    <string-array name="Bloco">
+        <item>Bloco A</item>
+        <item>Bloco B</item>
+        <item>Bloco C</item>
+    </string-array>
+</resources>
