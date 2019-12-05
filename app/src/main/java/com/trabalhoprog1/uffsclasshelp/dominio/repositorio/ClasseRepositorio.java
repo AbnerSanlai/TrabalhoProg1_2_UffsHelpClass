@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.trabalhoprog1.uffsclasshelp.dominio.entidade.Turma;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +17,7 @@ public class ClasseRepositorio {
         this.conexao = conexao;
     }
 
-    public void inserir(Classe turma) {
+    public void inserir(Turma turma) {
 
         ContentValues contentValues = new ContentValues();
         contentValues.put("CLAS_DATA_HORA", turma.CLAS_DATA_HORA);
@@ -40,7 +42,7 @@ public class ClasseRepositorio {
 
     }
 
-    public void alterar(Classe turma) {
+    public void alterar(Turma turma) {
 
         ContentValues contentValues = new ContentValues();
         contentValues.put("CLAS_DATA_HORA", turma.CLAS_DATA_HORA);
@@ -56,9 +58,9 @@ public class ClasseRepositorio {
         conexao.update("CLASS", contentValues, "CLAS_ID = ?", parametros);
     }
 
-    public List<Classe> buscarTodos() {
+    public List<Turma> buscarTodos() {
 
-        List<Classe> turma = new ArrayList<Classe>();
+        List<Turma> turma = new ArrayList<Turma>();
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT * FROM CLASS WHERE CLAS_ID = ?" );
 
@@ -67,7 +69,7 @@ public class ClasseRepositorio {
         if (resultado.getCount() > 0) {
             resultado.moveToFirst();
             do {
-                Classe cla = new Classe();
+                Turma cla = new Turma();
                 cla.CLAS_BLOCO = resultado.getString(resultado.getColumnIndexOrThrow("CLAS_BLOCO" ));
                 cla.CLAS_CODI_TUTOR = resultado.getInt(resultado.getColumnIndexOrThrow("CLAS_CODI_TUTOR" ));
                 cla.CLAS_CONTEUDO = resultado.getString(resultado.getColumnIndexOrThrow("CLAS_CONTEUDO" ));
@@ -83,8 +85,8 @@ public class ClasseRepositorio {
         return turma;
     }
 
-    public Classe buscarCliente(int codigo) {
-        Classe classe = new Classe();
+    public Turma buscarCliente(int codigo) {
+        Turma classe = new Turma();
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT * FROM CLASS WHERE CLAS_ID = ?" );
 

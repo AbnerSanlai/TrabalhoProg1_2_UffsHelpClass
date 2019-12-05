@@ -27,6 +27,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.trabalhoprog1.uffsclasshelp.DB.DBHELPCLASS;
 import com.trabalhoprog1.uffsclasshelp.dominio.repositorio.ClasseRepositorio;
 import com.trabalhoprog1.uffsclasshelp.dominio.entidade.*;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -42,14 +43,14 @@ public class ActCadastroTurma extends AppCompatActivity {
     private Button btnData;
     private EditText edtConteudo;
     //private DateFormat formatodatahora = DateFormat.getDateTimeInstance();
-    private SimpleDateFormat formatodatahora = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss" );
+    private SimpleDateFormat formatodatahora = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     private Date data = new Date();
     Spinner salas;
     Spinner blocos;
     private ClasseRepositorio classeRepositorio;
     private SQLiteDatabase conexao;
     private DBHELPCLASS dbhelpclass;
-
+    private Turma turma;
 
 
     @Override
@@ -95,8 +96,8 @@ public class ActCadastroTurma extends AppCompatActivity {
             dbhelpclass = new DBHELPCLASS(this);
             conexao = dbhelpclass.getWritableDatabase();
             androidx.appcompat.app.AlertDialog.Builder dlg = new androidx.appcompat.app.AlertDialog.Builder(this);
-            dlg.setTitle("Erro" );
-            dlg.setMessage("Deu Certo" );
+            dlg.setTitle("Erro");
+            dlg.setMessage("Deu Certo");
             dlg.setNeutralButton("Ok", null);
             dlg.show();
             //Snackbar.make(layoutContatMain, "Conexao Criada com Sucesso", Snackbar.LENGTH_SHORT).setAction("OK", null).show();
@@ -105,7 +106,7 @@ public class ActCadastroTurma extends AppCompatActivity {
         } catch (SQLException ex) {
 
             androidx.appcompat.app.AlertDialog.Builder dlg = new androidx.appcompat.app.AlertDialog.Builder(this);
-            dlg.setTitle("Erro" );
+            dlg.setTitle("Erro");
             dlg.setMessage(ex.getMessage());
             dlg.setNeutralButton("Ok", null);
             dlg.show();
@@ -159,7 +160,7 @@ public class ActCadastroTurma extends AppCompatActivity {
         switch (id) {
 
             case R.id.action_salvar:
-                ValidaCampos();
+               confirmar();
                 break;
 
             case R.id.action_sair:
@@ -173,10 +174,23 @@ public class ActCadastroTurma extends AppCompatActivity {
     }
 
 
-    private void confirmar{
-        if(ValidaCampos() == false){
+    private void confirmar() {
 
-            classeRepositorio.inserir(classe);
+        turma = new Turma();
+
+        if (ValidaCampos() == false) {
+            try {
+                classeRepositorio.inserir(turma);
+                finish();
+            } catch (SQLException ex) {
+                androidx.appcompat.app.AlertDialog.Builder dlg = new androidx.appcompat.app.AlertDialog.Builder(this);
+                dlg.setTitle("Erro");
+                dlg.setMessage(ex.getMessage());
+                dlg.setNeutralButton("Ok", null);
+                dlg.show();
+            }
+
+
         }
 
     }
@@ -195,8 +209,8 @@ public class ActCadastroTurma extends AppCompatActivity {
 
         if (resposta) {
             AlertDialog.Builder dlg = new AlertDialog.Builder(this);
-            dlg.setTitle("Aviso" );
-            dlg.setMessage("Há campos branco!!" );
+            dlg.setTitle("Aviso");
+            dlg.setMessage("Há campos branco!!");
             dlg.setNeutralButton("OK", null);
             dlg.show();
         }
